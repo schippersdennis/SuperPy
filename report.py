@@ -1,11 +1,12 @@
 import os
 import csv
 from rich import print
-from helpers import getTime
+from helpers import getTime, generateCsvReport
 from asyncio.windows_events import NULL
 from get_tables import buildingTables
 from datetime import date, datetime, timedelta
 import datetime
+from get_chart import plot_inventory
 
 
 def reports_builder(args):
@@ -61,7 +62,12 @@ def reports_builder(args):
 
     # inventory
     if args.parser_report == "inventory" and boughtExist:
+        # 1. generate CLI schema
         buildingTables(collection["items"])
+        # 2. Export inventory to CSV
+        generateCsvReport(collection["items"])
+        # 3. Render a Mathplot visual.
+        plot_inventory(collection["items"])
 
     if boughtExist and sellExist:
         # Revenue

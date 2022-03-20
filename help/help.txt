@@ -1,0 +1,72 @@
+SuperPy.
+
+A large supermarket chain has asked you to write a command-line tool that is able to keep track of their inventory: 
+they want to call it SuperPy. The core functionality is about keeping track and producing reports on various kinds of data:
+
+Usage:
+1. run the main.py --help tags to see the help instructions.
+positional arguments:
+  {buy,sell,report}
+    buy                 Registering product purchases
+    sell                register sold product
+    report              Generate reports about transactions.
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+2. main.py [-h] [--advance-time ADVANCE_TIME] {buy,sell,report}
+
+
+
+--- features
+1. Advance the time forward.
+--advance-time ADVANCE_TIME (advance time by amount of days)
+
+
+2. Register items you bought for the supermarket.
+ usage: main.py buy [-h] [--product-name PRODUCT_NAME] [--price PRICE] --expiration-date EXPIRATION_DATE
+ optional arguments:
+  -h, --help            show this help message and exit
+  --product-name PRODUCT_NAME
+                        Enter the name of the product you would like to add here
+  --price PRICE         Enter the price for which you want to buy the product
+  --expiration-date EXPIRATION_DATE
+                        Enter expiration date of the product. (default format: yyyy-mm-dd)
+
+3. Get reports of product transactions.
+usage: main.py report [-h] {inventory,revenue,profit} ...
+
+positional arguments:
+  {inventory,revenue,profit}
+    inventory           Reports involving involvement to inventory
+        optional arguments:
+        -h, --help   show this help message and exit
+        --now        View today's inventory report
+        --yesterday  View yesterday's inventory report
+    revenue             Reports involving involvement to revenue
+        optional arguments:
+        -h, --help   show this help message and exit
+        --yesterday  View today's revenue report
+        --today      View yesterday's revenue report
+        --date DATE  show revenue report from given date: insert date as: YYYY-MM
+    profit              Reports involving involvement to profit
+        -h, --help  show this help message and exit
+        --today     View today's profit report
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+
+4. keeping track over all sold items of the supermarket.
+usage: main.py sell [-h] [--product-name PRODUCT_NAME] [--price PRICE]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --product-name PRODUCT_NAME
+                        Enter the product name of the product you want to sell.
+  --price PRICE         Enter the price for which you are selling the product
+
+
+
+
+

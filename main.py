@@ -25,44 +25,68 @@ subparsers = parser.add_subparsers(dest="command")
 parser.add_argument("--advance-time", type=int, help="advance time by amount of days")
 
 # Buy
-buy_parser = subparsers.add_parser("buy", help="show status")
-buy_parser.add_argument("--product-name", type=str, help="product name")
-buy_parser.add_argument("--price", type=float, help="product price")
+buy_parser = subparsers.add_parser("buy", help="Registering product purchases")
+buy_parser.add_argument(
+    "--product-name",
+    type=str,
+    help="Enter the name of the product you would like to add here",
+)
+buy_parser.add_argument(
+    "--price", type=float, help="Enter the price for which you want to buy the product"
+)
 buy_parser.add_argument(
     "--expiration-date",
     type=lambda s: datetime.strptime(s, "%Y-%m-%d"),
     default="yyyy-mm-dd",
     required=True,
-    help="Enter date. (default format: %(default)s)",
+    help="Enter expiration date of the product. (default format: %(default)s)",
 )
 
 # Sell Parser:
 sell_parser = subparsers.add_parser("sell", help="register sold product")
-sell_parser.add_argument("--product-name", help="product name")
-sell_parser.add_argument("--price", type=float, help="sell price")
+sell_parser.add_argument(
+    "--product-name", help="Enter the product name of the product you want to sell."
+)
+sell_parser.add_argument(
+    "--price", type=float, help="Enter the price for which you are selling the product"
+)
 
 # Report Parsers:
-report = subparsers.add_parser("report", help="report transactions")
+report = subparsers.add_parser("report", help="Generate reports about transactions.")
 report_subparsers = report.add_subparsers(dest="parser_report")
 
 # -Sub_Parsers
-inventory = report_subparsers.add_parser("inventory", help="inventory")
-revenue = report_subparsers.add_parser("revenue", help="revenue")
-profit = report_subparsers.add_parser("profit", help="profit")
+inventory = report_subparsers.add_parser(
+    "inventory", help="Reports involving involvement to inventory"
+)
+revenue = report_subparsers.add_parser(
+    "revenue", help="Reports involving involvement to revenue"
+)
+profit = report_subparsers.add_parser(
+    "profit", help="Reports involving involvement to profit"
+)
 
 # --Inventory
-inventory.add_argument("--now", action="store_true", help="current report")
-inventory.add_argument("--yesterday", action="store_true", help="yesterday's report")
+inventory.add_argument(
+    "--now", action="store_true", help="View today's inventory report"
+)
+inventory.add_argument(
+    "--yesterday", action="store_true", help="View yesterday's inventory report"
+)
 
 # --Revenue
-revenue.add_argument("--yesterday", action="store_true", help="yesterday's report")
-revenue.add_argument("--today", action="store_true", help="today's report")
 revenue.add_argument(
-    "--date", help="show report from given date: insert date as: YYYY-MM"
+    "--yesterday", action="store_true", help="View today's revenue report"
+)
+revenue.add_argument(
+    "--today", action="store_true", help="View yesterday's revenue report"
+)
+revenue.add_argument(
+    "--date", help="show revenue report from given date: insert date as: YYYY-MM"
 )
 
 # --Profit
-profit.add_argument("--today", action="store_true", help="today's report")
+profit.add_argument("--today", action="store_true", help="View today's profit report")
 args = parser.parse_args()
 
 

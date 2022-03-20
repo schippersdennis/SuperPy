@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from rich import print
 import calendar
 import csv
+import os
 
 
 # Advance Date
@@ -61,3 +62,34 @@ def getTime(args):
         dateTimeObj["date"] = datetime.strptime((args.date + "-01"), "%Y-%m-%d").date()
 
     return dateTimeObj
+
+
+def generateCsvReport(data):
+    if os.path.isfile("export.csv"):
+        os.remove("export.csv")
+
+    with open("export.csv", "w+", newline="") as csv_file:
+        fieldnames = [
+            "id",
+            "product_name",
+            "buy_date",
+            "buy_price",
+            "expiration_date",
+            "export_date",
+        ]
+        csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames, delimiter=",")
+        csv_writer.writeheader()
+
+        for row in data:
+            writeData = {
+                "id": get_last_id(0, "export"),
+                "product_name": row["product_name"],
+                "buy_date": row["buy_date"],
+                "buy_price": row["buy_price"],
+                "expiration_date": row["expiration_date"],
+                "export_date": timestamp_today(),
+            }
+            csv_writer.writerow(writeData)
+    print("[bold green]successfully exported CSV file[/bold green]")
+
+
