@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 
 
 def plot_inventory(data):
+    if len(data) == 0:
+        return
     date = data[0]["buy_date"][0:10]
     products = []
     price = []
